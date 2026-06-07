@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./App.css";
+import { jsPDF } from "jspdf";
 
 function App() {
   const [name, setName] = useState("");
@@ -11,6 +12,22 @@ function App() {
   const [photo, setPhoto] = useState(null);
   const [github, setGithub] = useState("");
   const [linkedin, setLinkedin ] = useState("");
+  const downloadPDF = () => {
+    const doc = new jsPDF();
+    doc.setFontSize(20);
+    doc.text("AI Resume Builder", 10, 10);
+
+    doc.text(`Name:${name}`,10,20);
+    doc.text(`Email: ${email}`, 10, 30);
+    doc.text(`Phone: ${phone}`, 10, 40);
+    doc.text(`Education: ${education}`, 10, 50);
+    doc.text(`Skills: ${skills}`, 10, 60);
+    doc.text(`Summary: ${summary}`, 10, 70);
+    doc.text(`GitHub: ${github}`, 10, 80);
+    doc.text(`LinkedIn: ${linkedin}`, 10, 90);
+
+    doc.save("resume.pdf");
+  };
 
   return (
     <div className="container">
@@ -64,6 +81,12 @@ function App() {
           placeholder="Enter Professional Summary"
           onChange={(e) => setSummary(e.target.value)}
         ></textarea>
+
+        <button onClick={downloadPDF}>
+          Download PDF
+        </button>
+
+
       </div>
 
       
