@@ -16,9 +16,27 @@ function App() {
   const [projects, setProjects] = useState("");
   const [technicalSkills, setTechnicalSkills] = useState([]);
   const [otherSkill, setOtherSkill] = useState("");
-  const downloadPDF = () => {
+  const downloadPDF = async () => {
     const doc = new jsPDF();
+
+    let imageData = "";
+
+      if (photo) {
+        imageData = await new Promise((resolve) => {
+          const reader = new FileReader();
+
+          reader.onload = () => {
+            resolve(reader.result);
+          };
+
+          reader.readAsDataURL(photo);
+        });
+      }
+
     doc.setFontSize(20);
+    if (imageData) {
+       doc.addImage(imageData, "JPEG", 150, 10, 40, 40);
+    }
     doc.text("AI Resume Builder", 10, 10);
 
     doc.text(`Name:${name}`,10,30);
