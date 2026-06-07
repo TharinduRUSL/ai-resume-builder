@@ -12,19 +12,29 @@ function App() {
   const [photo, setPhoto] = useState(null);
   const [github, setGithub] = useState("");
   const [linkedin, setLinkedin ] = useState("");
+  const [experience,setExperience] = useState("");
+  const [projects, setProjects] = useState("");
+  const [technicalSkills, setTechnicalSkills] = useState([]);
+  const [otherSkill, setOtherSkill] = useState("");
   const downloadPDF = () => {
     const doc = new jsPDF();
     doc.setFontSize(20);
     doc.text("AI Resume Builder", 10, 10);
 
-    doc.text(`Name:${name}`,10,20);
-    doc.text(`Email: ${email}`, 10, 30);
-    doc.text(`Phone: ${phone}`, 10, 40);
-    doc.text(`Education: ${education}`, 10, 50);
-    doc.text(`Skills: ${skills}`, 10, 60);
-    doc.text(`Summary: ${summary}`, 10, 70);
-    doc.text(`GitHub: ${github}`, 10, 80);
-    doc.text(`LinkedIn: ${linkedin}`, 10, 90);
+    doc.text(`Name:${name}`,10,30);
+    doc.text(`Email: ${email}`, 10, 40);
+    doc.text(`Phone: ${phone}`, 10, 50);
+    doc.text(`Education: ${education}`, 10, 60);
+    doc.text(`Skills: ${skills}`, 10, 70);
+    doc.text(`Summary: ${summary}`, 10, 80);
+    doc.text(`GitHub: ${github}`, 10, 90);
+    doc.text(`LinkedIn: ${linkedin}`, 10, 100);
+    doc.text(`Experience: ${experience}`,10,110);
+    doc.text(`Projects: ${projects}`, 10, 120);
+    doc.text(
+       `Technical Skills: ${technicalSkills.join(", ")} ${otherSkill}`,
+       10,130
+    );
 
     doc.save("resume.pdf");
   };
@@ -76,6 +86,85 @@ function App() {
         <input type="text"
           placeholder="Enter LinkedIn Profile Link" 
           onChange={(e) => setLinkedin(e.target.value)}/>
+
+        <input 
+          type="text"
+          placeholder="Enter Experience"
+          onChange={(e) => setExperience(e.target.value)} />
+
+        <input 
+        type="text"
+        placeholder="Enter Your projects"
+        onChange={(e) => setProjects(e.target.value)}
+         />
+
+         <label>
+          <input
+              type="checkbox"
+              onChange={(e) => {
+                if (e.target.checked) {
+                  setTechnicalSkills([...technicalSkills, "React JS"]);
+          }
+        }}
+      />   
+           React JS
+         </label>
+
+         <label>
+          <input
+            type="checkbox"
+            onChange={(e) => {
+              if (e.target.checked) {
+                setTechnicalSkills([...technicalSkills, "Java"]);
+              }
+            }}
+          />
+            Java
+        </label>
+
+        <label>
+          <input
+            type="checkbox"
+            onChange={(e) => {
+              if (e.target.checked) {
+                setTechnicalSkills([...technicalSkills, "Spring Boot"]);
+              }
+            }}
+          />
+          Spring Boot
+        </label>
+
+        <label>
+            <input
+              type="checkbox"
+              onChange={(e) => {
+                if (e.target.checked) {
+                  setTechnicalSkills([...technicalSkills, "MySQL"]);
+                }
+              }}
+            />
+            MySQL
+        </label>
+
+        <label>
+          <input
+            type="checkbox"
+            onChange={(e) => {
+              if (e.target.checked) {
+                setTechnicalSkills([...technicalSkills, "Git & GitHub"]);
+              }
+            }}
+          />
+          Git & GitHub
+        </label>
+
+        <input
+          type="text"
+          placeholder="Other Skill"
+          onChange={(e) => setOtherSkill(e.target.value)}
+        />
+
+
 
         <textarea
           placeholder="Enter Professional Summary"
@@ -131,6 +220,20 @@ function App() {
 
           <p>
             <strong>Linkedin:</strong>{linkedin}
+          </p>
+
+          <p>
+            <strong>Experience:</strong>{experience}
+          </p>
+
+          <p>
+            <strong>Projects:</strong>{projects}
+          </p>
+
+          <p>
+            <strong>Technical Skills:</strong>{" "}
+            {technicalSkills.join(", ")}
+            {otherSkill && `,${otherSkill}`}
           </p>
 
         </div>
