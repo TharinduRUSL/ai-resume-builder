@@ -8,10 +8,11 @@ function App() {
   const [education, setEducation] = useState("");
   const [skills, setSkills] = useState("");
   const [summary, setSummary] = useState("");
+  const [photo, setPhoto] = useState(null);
 
   return (
     <div className="container">
-      {/* Form Section */}
+    
       <div className="form-section">
         <h1>AI Resume Builder</h1>
 
@@ -45,17 +46,28 @@ function App() {
           onChange={(e) => setSkills(e.target.value)}
         />
 
+        <input type="file"
+          accept="image/*" 
+          onChange={(e) => setPhoto(e.target.files[0])}/>
+
         <textarea
           placeholder="Enter Professional Summary"
           onChange={(e) => setSummary(e.target.value)}
         ></textarea>
       </div>
 
-      {/* Preview Section */}
+      
       <div className="preview-section">
         <h2>Resume Preview</h2>
 
         <div className="resume-card">
+          {photo && (
+            <img
+              src={URL.createObjectURL(photo)}
+              alt="Profile"
+              className="Profile-photo"
+              />
+          )}
           <h3>{name || "Your Name"}</h3>
 
           <p>
