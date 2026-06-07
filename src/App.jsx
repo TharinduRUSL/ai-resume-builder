@@ -17,45 +17,59 @@ function App() {
   const [technicalSkills, setTechnicalSkills] = useState([]);
   const [otherSkill, setOtherSkill] = useState("");
   const downloadPDF = async () => {
-    const doc = new jsPDF();
+  const doc = new jsPDF();
 
-    let imageData = "";
+  let imageData = "";
 
-      if (photo) {
-        imageData = await new Promise((resolve) => {
-          const reader = new FileReader();
+  if (photo) {
+    imageData = await new Promise((resolve) => {
+      const reader = new FileReader();
 
-          reader.onload = () => {
-            resolve(reader.result);
-          };
+      reader.onload = () => {
+        resolve(reader.result);
+      };
 
-          reader.readAsDataURL(photo);
-        });
-      }
+      reader.readAsDataURL(photo);
+    });
+  }
 
-    doc.setFontSize(20);
-    if (imageData) {
-       doc.addImage(imageData, "JPEG", 150, 10, 40, 40);
-    }
-    doc.text("AI Resume Builder", 10, 10);
+  if (imageData) {
+    doc.addImage(imageData, "JPEG", 150, 10, 40, 40);
+  }
 
-    doc.text(`Name:${name}`,10,30);
-    doc.text(`Email: ${email}`, 10, 40);
-    doc.text(`Phone: ${phone}`, 10, 50);
-    doc.text(`Education: ${education}`, 10, 60);
-    doc.text(`Skills: ${skills}`, 10, 70);
-    doc.text(`Summary: ${summary}`, 10, 80);
-    doc.text(`GitHub: ${github}`, 10, 90);
-    doc.text(`LinkedIn: ${linkedin}`, 10, 100);
-    doc.text(`Experience: ${experience}`,10,110);
-    doc.text(`Projects: ${projects}`, 10, 120);
-    doc.text(
-       `Technical Skills: ${technicalSkills.join(", ")} ${otherSkill}`,
-       10,130
-    );
+  doc.setFontSize(20);
+  doc.text("AI Resume Builder", 10, 10);
 
-    doc.save("resume.pdf");
-  };
+  doc.setFontSize(12);
+
+  doc.text(`Name: ${name}`, 10, 30);
+  doc.text(`Email: ${email}`, 10, 40);
+  doc.text(`Phone: ${phone}`, 10, 50);
+  doc.text(`Education: ${education}`, 10, 60);
+  doc.text(`Skills: ${skills}`, 10, 70);
+
+  const splitSummary = doc.splitTextToSize(
+    `Summary: ${summary}`,
+    120
+  );
+
+  doc.text(splitSummary, 10, 80);
+
+  let nextY = 90 + splitSummary.length * 12;
+
+  doc.text(`GitHub: ${github}`, 10, nextY + 10);
+  doc.text(`LinkedIn: ${linkedin}`, 10, nextY + 20);
+  doc.text(`Experience: ${experience}`, 10, nextY + 30);
+  doc.text(`Projects: ${projects}`, 10, nextY + 40);
+
+  doc.text(
+    `Technical Skills: ${technicalSkills.join(", ")} ${otherSkill}`,
+    10,
+    nextY + 50
+  );
+
+  doc.save("resume.pdf");
+};
 
   return (
     <div className="container">
