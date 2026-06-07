@@ -9,6 +9,8 @@ function App() {
   const [skills, setSkills] = useState("");
   const [summary, setSummary] = useState("");
   const [photo, setPhoto] = useState(null);
+  const [github, setGithub] = useState("");
+  const [linkedin, setLinkedin ] = useState("");
 
   return (
     <div className="container">
@@ -50,6 +52,14 @@ function App() {
           accept="image/*" 
           onChange={(e) => setPhoto(e.target.files[0])}/>
 
+        <input type="text"
+          placeholder="Enter GitHub Profile Link"
+          onChange={(e) => setGithub(e.target.value)} />
+
+        <input type="text"
+          placeholder="Enter LinkedIn Profile Link" 
+          onChange={(e) => setLinkedin(e.target.value)}/>
+
         <textarea
           placeholder="Enter Professional Summary"
           onChange={(e) => setSummary(e.target.value)}
@@ -65,7 +75,7 @@ function App() {
             <img
               src={URL.createObjectURL(photo)}
               alt="Profile"
-              className="Profile-photo"
+              className="profile-photo"
               />
           )}
           <h3>{name || "Your Name"}</h3>
@@ -91,6 +101,15 @@ function App() {
           </p>
 
           <p>{summary}</p>
+
+          <p>
+            <strong>Github:</strong>{github}
+          </p>
+
+          <p>
+            <strong>Linkedin:</strong>{linkedin}
+          </p>
+
         </div>
       </div>
     </div>
