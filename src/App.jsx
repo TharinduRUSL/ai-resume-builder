@@ -223,17 +223,20 @@ function App() {
               />
           )}
           <h3>{name || "Your Name"}</h3>
-
-          <p>
-            <strong>Email:</strong> {email}
+          <p className="job-title">
+              Information Systems Undergraduate
           </p>
 
           <p>
-            <strong>Phone:</strong> {phone}
+           📧 <strong>Email:</strong> {email}
           </p>
 
           <p>
-            <strong>Education:</strong> {education}
+            📱 <strong>Phone:</strong> {phone}
+          </p>
+
+          <p>
+            🎓<strong>Education:</strong> {education}
           </p>
 
           <p>
@@ -247,25 +250,39 @@ function App() {
           <p>{summary}</p>
 
           <p>
-            <strong>Github:</strong>{github}
+            🌐<strong>Github:</strong>{github}
           </p>
 
           <p>
-            <strong>Linkedin:</strong>{linkedin}
+            🔗<strong>Linkedin:</strong>{linkedin}
           </p>
 
           <p>
-            <strong>Experience:</strong>{experience}
+            🎓<strong>Experience:</strong>{experience}
           </p>
 
           <p>
-            <strong>Projects:</strong>{projects}
+            🚀 <strong>Projects:</strong>{projects}
           </p>
 
           <p>
-            <strong>Technical Skills:</strong>{" "}
-            {technicalSkills.join(", ")}
-            {otherSkill && `,${otherSkill}`}
+               <div>
+                <strong>Technical Skills:</strong>
+
+                <div className="skill-badges">
+                  {technicalSkills.map((skill, index) => (
+                    <span key={index} className="badge">
+                      {skill}
+                    </span>
+                  ))}
+
+                  {otherSkill && (
+                    <span className="badge">
+                      {otherSkill}
+                    </span>
+                  )}
+                </div>
+              </div>
           </p>
 
         </div>
