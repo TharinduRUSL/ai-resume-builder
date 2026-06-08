@@ -25,7 +25,7 @@ A modern Resume Builder application built with React JS and Vite.
 
 ## Screenshot
 
-![AI Resume Builder](![AI Resume Builder](public/screenshot/project-preview.png))
+![AI Resume Builder](public/screnshot/project-preview.png)
 
 ## Installation
 
